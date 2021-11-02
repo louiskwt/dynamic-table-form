@@ -69,19 +69,25 @@ function TableForm() {
 									<TableCell component='th' scope='row'>
 										{passenger.number}
 									</TableCell>
-									<TableCell align='right'>
-										<TextField
-											id='outlined-basic'
-											label='Enter age'
-											variant='outlined'
-											type='number'
-											InputLabelProps={{
-												shrink: true
-											}}
-										/>
+									<TableCell align='center'>
+										<FormControl
+											sx={{ m: 1, minWidth: 120 }}
+										>
+											<TextField
+												id='outlined-basic'
+												label='Enter age'
+												variant='outlined'
+												type='number'
+												InputLabelProps={{
+													shrink: true
+												}}
+											/>
+										</FormControl>
 									</TableCell>
-									<TableCell align='right'>
-										<FormControl fullWidth>
+									<TableCell align='center'>
+										<FormControl
+											sx={{ m: 1, minWidth: 120 }}
+										>
 											<InputLabel id='demo-simple-select-label'>
 												Meal Plan
 											</InputLabel>
