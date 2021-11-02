@@ -25,15 +25,24 @@ function TableForm() {
 		let arr = [];
 		// Push an object to the passenger info array based on the number of passenger
 		for (let i = 0; i < value; i++) {
-			const object = {
+			const info = {
 				number: i + 1,
 				age: '',
 				meal: ''
 			};
-			arr.push(object);
+			arr.push(info);
 		}
 		// Set passengerInfo
 		setPassengerInfo(arr);
+	};
+
+	const updatePassengerInfo = (value, index, col) => {
+		// Get a copy of the passengerInfo and store it in a new array
+		let newArr = passengerInfo;
+		// Update the new arr according the the col and index
+		newArr[index][col] = value;
+		// reset the passengerInfo state with the temp arr
+		setPassengerInfo(newArr);
 	};
 
 	return (
@@ -46,6 +55,9 @@ function TableForm() {
 				variant='outlined'
 				onChange={(e) => setTable(e.target.value)}
 			/>
+
+			{/* Render the table based on the number of passenger */}
+
 			{passengerNumber > 0 ? (
 				<TableContainer component={Paper} sx={{ mt: 5 }}>
 					<Table sx={{ minWidth: 500 }} aria-label='simple table'>
@@ -57,7 +69,7 @@ function TableForm() {
 							</TableRow>
 						</TableHead>
 						<TableBody>
-							{passengerInfo.map((passenger) => (
+							{passengerInfo.map((passenger, index) => (
 								<TableRow
 									key={passenger.number}
 									sx={{
@@ -81,6 +93,13 @@ function TableForm() {
 												InputLabelProps={{
 													shrink: true
 												}}
+												onChange={(e) => {
+													updatePassengerInfo(
+														e.target.value,
+														index,
+														'age'
+													);
+												}}
 											/>
 										</FormControl>
 									</TableCell>
@@ -95,6 +114,13 @@ function TableForm() {
 												labelId='demo-simple-select-label'
 												id='demo-simple-select'
 												label='Meal Plan'
+												onChange={(e) => {
+													updatePassengerInfo(
+														e.target.value,
+														index,
+														'meal'
+													);
+												}}
 											>
 												<MenuItem
 													value={'Non-vegetarian'}
