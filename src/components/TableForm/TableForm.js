@@ -47,6 +47,7 @@ function TableForm() {
 
 	return (
 		<div id='form'>
+			<h1>Choose a meal plan for each passanger</h1>
 			<h3 id='question'>How many passagers are travelling with you?</h3>
 			<TextField
 				fullWidth

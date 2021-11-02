@@ -1,11 +1,17 @@
 import './App.css';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import TableForm from './components/TableForm/TableForm';
 
 function App() {
 	return (
 		<div className='App'>
-			<h1>Choose a meal plan for each passanger</h1>
-			<TableForm />
+			<Router>
+				<Switch path='/complete'></Switch>
+
+				<Switch exact path='/'>
+					<TableForm />
+				</Switch>
+			</Router>
 		</div>
 	);
 }
