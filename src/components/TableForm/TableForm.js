@@ -12,11 +12,13 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import { useHistory } from 'react-router';
 import './TableForm.css';
 
 function TableForm() {
 	const [passengerNumber, setpassengerNumber] = useState(0);
 	const [passengerInfo, setPassengerInfo] = useState([]);
+	const history = useHistory();
 
 	const setTable = (value) => {
 		// Set passenger number based on input
@@ -43,6 +45,10 @@ function TableForm() {
 		newArr[index][col] = value;
 		// reset the passengerInfo state with the temp arr
 		setPassengerInfo(newArr);
+	};
+
+	const handleSubmit = () => {
+		history.push('/complete');
 	};
 
 	return (
@@ -150,6 +156,7 @@ function TableForm() {
 				sx={{ mt: 5, width: '100%' }}
 				variant='contained'
 				color='success'
+				onClick={() => handleSubmit()}
 			>
 				Submit
 			</Button>
