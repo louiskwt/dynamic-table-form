@@ -12,13 +12,31 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { useHistory } from 'react-router';
 import './TableForm.css';
 
 function TableForm() {
+	// React Router hook
+	const history = useHistory();
+
+	// Toasts
+	const warning = (msg) => {
+		toast.error(msg, {
+			position: 'top-center',
+			autoClose: 2000,
+			hideProgressBar: true,
+			closeOnClick: true,
+			theme: 'colored'
+		});
+	};
+
+	// States for the form
 	const [passengerNumber, setpassengerNumber] = useState(0);
 	const [passengerInfo, setPassengerInfo] = useState([]);
-	const history = useHistory();
+
+	// Form functions
 
 	const setTable = (value) => {
 		// Set passenger number based on input
@@ -48,13 +66,28 @@ function TableForm() {
 	};
 
 	const handleSubmit = () => {
-		history.push('/complete');
+		if (passengerNumber === 0) {
+			return history.push('/complete');
+		}
+		// Check if the passengerInfo has an object with an empty field
+		const validation = passengerInfo.every(
+			(passenger) => passenger.age && passenger.meal
+		);
+
+		if (passengerNumber > 0 && !validation) {
+			return warning(
+				'Please fill in the passenger info for each passenger'
+			);
+		} else {
+			return history.push('/complete');
+		}
 	};
 
 	return (
 		<div id='form'>
 			<h1>Choose a meal plan for each passanger</h1>
 			<h3 id='question'>How many passagers are travelling with you?</h3>
+			{/* Input field */}
 			<TextField
 				fullWidth
 				id='outlined-basic'
@@ -151,6 +184,7 @@ function TableForm() {
 			) : (
 				<></>
 			)}
+
 			<Button
 				fullwidth
 				sx={{ mt: 5, width: '100%' }}
@@ -160,6 +194,7 @@ function TableForm() {
 			>
 				Submit
 			</Button>
+			<ToastContainer />
 		</div>
 	);
 }
